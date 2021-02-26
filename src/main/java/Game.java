@@ -1,5 +1,8 @@
+import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextCharacter;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
@@ -31,6 +34,7 @@ public class Game {
             screen.setCursorPosition(null);     //we don't need a cursor
             screen.startScreen();               //screens must be started
             screen.doResizeIfNecessary();       //resize screen if necessary
+
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -40,15 +44,15 @@ public class Game {
     public void run() {
 
         try {
-
-            arena.draw(screen);
+            arena.draw(screen.newTextGraphics());
             KeyStroke key = screen.readInput();;
             while ( !(key.getKeyType() == KeyType.Character && key.getCharacter() == 'q') && !(key.getKeyType() == KeyType.EOF)) {
                 processKey(key);
-                arena.draw(screen);
+                screen.clear();
+                arena.draw(screen.newTextGraphics());
+                screen.refresh();
                 key = screen.readInput();
             }
-
         }
         catch(IOException e) {
             e.printStackTrace();

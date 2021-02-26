@@ -1,4 +1,5 @@
-import com.googlecode.lanterna.TextCharacter;
+import com.googlecode.lanterna.*;
+import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
 
@@ -16,17 +17,12 @@ public class Arena {
         hero = new Hero(new Position(10, 10));
     }
 
-    public void draw(Screen screen) {
-
-        try {
-            screen.clear();
-            screen.setCharacter(hero.getX(), hero.getY(), TextCharacter.fromCharacter('X')[0]);
-            screen.refresh();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-
+    public void draw(TextGraphics graphics) throws IOException {
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
+        graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
+        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFF33"));
+        graphics.enableModifiers(SGR.BOLD);
+        graphics.putString(new TerminalPosition(hero.getX(), hero.getY()), "X");
     }
 
     public void processKey(KeyStroke key) {
