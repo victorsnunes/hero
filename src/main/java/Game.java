@@ -51,6 +51,10 @@ public class Game {
                 screen.clear();
                 arena.draw(screen.newTextGraphics());
                 screen.refresh();
+                if (arena.verifyMonsterCollisions()) {
+                    System.out.println("Oh no, a monster got you!");
+                    break;
+                }
                 key = screen.readInput();
             }
         }
