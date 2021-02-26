@@ -1,5 +1,10 @@
 plugins {
     id 'java'
+    id 'application'
+}
+
+application {
+    mainClass.set('Application')
 }
 
 group 'com.up201907226.hero'
@@ -12,6 +17,7 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    implementation group: 'com.googlecode.lanterna', name: 'lanterna', version: '3.1.1'
 }
 
 test {
