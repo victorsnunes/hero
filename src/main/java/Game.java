@@ -17,6 +17,8 @@ public class Game {
     private int x = 10;
     private int y = 10;
 
+    private Hero hero = new Hero(x, y);
+
     public Game() {
         try {
 
@@ -35,28 +37,15 @@ public class Game {
         }
     }
 
-    private void draw() {
-
-        try {
-            screen.clear();
-            screen.setCharacter(x, y, TextCharacter.fromCharacter('X')[0]);
-            screen.refresh();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
     public void run() {
-        draw();
 
         try {
-
+            
+            hero.draw(screen);
             KeyStroke key = screen.readInput();;
             while ( !(key.getKeyType() == KeyType.Character && key.getCharacter() == 'q') && !(key.getKeyType() == KeyType.EOF)) {
                 processKey(key);
-                draw();
+                hero.draw(screen);
                 key = screen.readInput();
             }
 
@@ -71,19 +60,19 @@ public class Game {
 
         switch (key.getKeyType()) {
             case ArrowUp:
-                y -= 1;
+                hero.moveUp();
                 break;
 
             case ArrowDown:
-                y += 1;
+                hero.moveDown();
                 break;
 
             case ArrowLeft:
-                x -= 1;
+                hero.moveLeft();
                 break;
 
             case ArrowRight:
-                x += 1;
+                hero.moveRight();
                 break;
 
             default:
