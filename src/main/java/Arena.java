@@ -63,7 +63,7 @@ public class Arena {
     private boolean canMove(Position position) {
 
         for (Wall wall : walls) {
-            if (wall.getX() == position.getX() && wall.getY() == position.getY())
+            if (wall.getPosition().equals(position))
                 return false;
         }
 

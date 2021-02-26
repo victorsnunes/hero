@@ -21,6 +21,7 @@ public class Hero {
     public int getY() {
         return position.getY();
     }
+    public Position getPosition() { return position; }
 
     public void setX(int x) {
         position.setX(x);
