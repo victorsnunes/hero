@@ -7,31 +7,14 @@ import com.googlecode.lanterna.screen.Screen;
 
 import java.io.IOException;
 
-public class Hero {
-
-    private Position position;
+public class Hero extends Element {
 
     public Hero(Position position) {
-        this.position = position;
+        super(position);
     }
+    public Hero(int x, int y) { super(x, y); }
 
-    public int getX() {
-        return position.getX();
-    }
-    public int getY() {
-        return position.getY();
-    }
-    public Position getPosition() { return position; }
-
-    public void setX(int x) {
-        position.setX(x);
-    }
-    public void setY(int y) {
-        position.setY(y);
-    }
-
-    public void setPosition(Position position) { this.position = position; }
-
+    @Override
     public void draw(TextGraphics graphics) {
         graphics.setForegroundColor(TextColor.Factory.fromString("#FFFF33"));
         graphics.enableModifiers(SGR.BOLD);
