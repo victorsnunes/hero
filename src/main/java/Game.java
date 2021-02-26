@@ -1,5 +1,7 @@
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextCharacter;
+import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
@@ -11,6 +13,9 @@ public class Game {
 
     private Terminal terminal;
     private Screen screen;
+
+    private int x = 10;
+    private int y = 10;
 
     public Game() {
         try {
@@ -34,7 +39,7 @@ public class Game {
 
         try {
             screen.clear();
-            screen.setCharacter(10, 10, TextCharacter.fromCharacter('X')[0]);
+            screen.setCharacter(x, y, TextCharacter.fromCharacter('X')[0]);
             screen.refresh();
         }
         catch (IOException e) {
@@ -45,5 +50,44 @@ public class Game {
 
     public void run() {
         draw();
+
+        try {
+
+            KeyStroke key = screen.readInput();;
+            while ( !(key.getKeyType() == KeyType.Character && key.getCharacter() == 'q') && !(key.getKeyType() == KeyType.EOF)) {
+                processKey(key);
+                draw();
+                key = screen.readInput();
+            }
+
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void processKey(KeyStroke key) {
+
+        switch (key.getKeyType()) {
+            case ArrowUp:
+                y -= 1;
+                break;
+
+            case ArrowDown:
+                y += 1;
+                break;
+
+            case ArrowLeft:
+                x -= 1;
+                break;
+
+            case ArrowRight:
+                x += 1;
+                break;
+
+            default:
+                break;
+        }
     }
 }
