@@ -14,15 +14,15 @@ public class Game {
     private Terminal terminal;
     private Screen screen;
 
-    private int x = 10;
-    private int y = 10;
+    private int width = 40;
+    private int height = 20;
 
-    private Hero hero = new Hero(x, y);
+    private Arena arena = new Arena(width, height);
 
     public Game() {
         try {
 
-            TerminalSize terminalSize = new TerminalSize(40, 20);
+            TerminalSize terminalSize = new TerminalSize(width, height);
             DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
 
             terminal = terminalFactory.createTerminal();
@@ -41,11 +41,11 @@ public class Game {
 
         try {
 
-            hero.draw(screen);
+            arena.draw(screen);
             KeyStroke key = screen.readInput();;
             while ( !(key.getKeyType() == KeyType.Character && key.getCharacter() == 'q') && !(key.getKeyType() == KeyType.EOF)) {
                 processKey(key);
-                hero.draw(screen);
+                arena.draw(screen);
                 key = screen.readInput();
             }
 
@@ -57,30 +57,6 @@ public class Game {
     }
 
     private void processKey(KeyStroke key) {
-
-        switch (key.getKeyType()) {
-            case ArrowUp:
-                moveHero(hero.moveUp());
-                break;
-
-            case ArrowDown:
-                moveHero(hero.moveDown());
-                break;
-
-            case ArrowLeft:
-                moveHero(hero.moveLeft());
-                break;
-
-            case ArrowRight:
-                moveHero(hero.moveRight());
-                break;
-
-            default:
-                break;
-        }
-    }
-
-    private void moveHero(Position position) {
-        hero.setPosition(position);
+        arena.processKey(key);
     }
 }
