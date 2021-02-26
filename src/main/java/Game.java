@@ -40,7 +40,7 @@ public class Game {
     public void run() {
 
         try {
-            
+
             hero.draw(screen);
             KeyStroke key = screen.readInput();;
             while ( !(key.getKeyType() == KeyType.Character && key.getCharacter() == 'q') && !(key.getKeyType() == KeyType.EOF)) {
@@ -60,23 +60,27 @@ public class Game {
 
         switch (key.getKeyType()) {
             case ArrowUp:
-                hero.moveUp();
+                moveHero(hero.moveUp());
                 break;
 
             case ArrowDown:
-                hero.moveDown();
+                moveHero(hero.moveDown());
                 break;
 
             case ArrowLeft:
-                hero.moveLeft();
+                moveHero(hero.moveLeft());
                 break;
 
             case ArrowRight:
-                hero.moveRight();
+                moveHero(hero.moveRight());
                 break;
 
             default:
                 break;
         }
+    }
+
+    private void moveHero(Position position) {
+        hero.setPosition(position);
     }
 }
